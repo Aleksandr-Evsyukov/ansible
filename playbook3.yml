@@ -1,0 +1,28 @@
+---
+- name: Install Apache and Upload my Page
+  hosts: all
+  become: yes
+
+
+  vars:
+    source_file: /home/ec2-user/ansible/MyWebSite/index.html
+    destin_file: /var/www/html
+
+  tasks:
+   - name: Install Web server
+     yum: name=httpd state=latest
+
+
+   - name: copy MyHomePage
+     copy: src={{ source_file }} dest={{ destin_file }} mode=0555
+     notify: Restart Apache
+
+
+   - name: Start WebServer and make it enable on boot
+     service: name=httpd state=started enabled=yes
+
+
+  handlers:
+  - name: Restart Apache
+    service: name=httpd state=restarted
+

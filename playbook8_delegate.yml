@@ -1,0 +1,41 @@
+---
+- name: my playbook delegate
+  hosts: all
+  become: yes
+
+
+  vars: 
+   mytext: "Privet ot buduchego DevOPS ))))))"
+
+  tasks:
+  - name: Ping test
+    ping:
+
+  - name: Create file1
+    copy:
+      dest: /home/file1.txt
+      content:
+        This is fileN1
+        On English Hello World
+        On Russian {{ mytext }}
+    delegate_to: LinuxAWS1
+
+  - name: Create file2
+    copy: 
+      dest: /home/file2.txt
+      content:
+        This is fileN1
+        On English Hello World
+        On Russian {{ mytext }}
+      
+ian {{ mytext }}
+    delegate_to: LinuxAWS1
+
+  - name: Create file2
+    copy: 
+      dest: /home/file2.txt
+      content:
+        This is fileN1
+        On English Hello World
+        On Russian {{ mytext }}
+      
